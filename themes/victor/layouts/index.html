@@ -8,7 +8,7 @@
       <h1 class="titulo">{{.Title}}</h1>
      <h4 class="subtitulo">{{ $.Site.Params.subtitle }}</h1>
      </div>
-     <div class="subject-details">
+     <div class="subject-details" style="min-height:400px">
       {{ range .Paginator.Pages }}
       <li>
           <a href="{{.Permalink}}">{{.Title}}</a>
