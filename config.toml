@@ -1,0 +1,8 @@
+baseURL = 'https://victorponz.github.io/programacion-java/'
+languageCode = 'en-us'
+title = 'Programación en JAVA'
+theme = 'victor'
+enableGitInfo = true
+[params]
+  GitHubURL = 'https://github.com/victorponz/programacion-java'
+  baseDir = 'programacion-java'
