@@ -4,6 +4,7 @@
     <body>
         {{- partial "header.html" . -}}
         <div id="content">
+          
           <div id="write-wrapper">
             <section id="projects" class="project-container container">
               <div id="subject-container" style="width: 100%; padding-top:80px; min-height:800px">
@@ -11,6 +12,8 @@
                   <div id="write">
                     <div style="height: 80px; border-left: 5px solid var(--text-color)"></div>
                     <h1 class="indice">{{ .Title }}</h1>
+                    {{ .TableOfContents }}
+
                   <div id='content'>
                    
                     {{- block "main" . }}{{ .Content }}{{- end }}
@@ -19,6 +22,9 @@
                 </div>
               </div>
             </section> 
+          </div>
+        </div>
+        {{- partial "scripts.html" . -}}
         {{- partial "footer.html" . -}}
     </body>
 </html>

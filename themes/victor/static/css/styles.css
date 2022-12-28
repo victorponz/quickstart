@@ -627,8 +627,8 @@ ul.doc-info {
 }
 .copy-code{
   position: absolute;
-  top: 4px;
-  right: 6px;
+  top: 8px;
+  right: 12px;
   background-color: rgb(224, 224, 224);
   padding: 8px;
   cursor: pointer;

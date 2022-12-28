@@ -48,7 +48,7 @@
   #write-wrapper{
     box-shadow: var(--shadow);
   }
-  #menu a{
+  #TableOfContents ul a{
     color: var(--text-color);
   }
   a.nav-link{
@@ -63,7 +63,7 @@
   .navbar .container{
     height: auto;
   }
-  #menu{
+  #TableOfContents ul:first-child{
     font-size: 20px;
     color: var(--text-color);
     border-left: 5px solid var(--text-color);
@@ -137,4 +137,10 @@
 
 a {
   text-decoration: none;
+}
+
+div.highlight{
+  position: relative;
+  overflow-x: scroll;
+  background-color: #272822;
 }
