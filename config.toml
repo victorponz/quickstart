@@ -1,8 +1,11 @@
 baseURL = 'https://victorponz.github.io/symfony-teoria/'
 languageCode = 'en-us'
-title = 'Programación en JAVA'
+title = 'Primeros pasos en Symfony'
 theme = 'victor'
 enableGitInfo = true
+linenos = true
+pygmentsCodeFences = true
 [params]
   GitHubURL = 'https://github.com/victorponz/symfony-teoria'
   baseDir = 'symfony-teoria'
+  subtitle= 'Aprende los conceptos básicos de Symfony'

@@ -2,7 +2,7 @@
 typora-copy-images-to: ../assets/
 typora-root-url: ../../
 layout: post
-permalink: controller
+slug: controller
 conToc: true
 title : Controller
 render_with_liquid: false
@@ -16,9 +16,10 @@ En apartados anteriores hemos visto el uso básico de los controladores y cómo 
 Si queremos redirigir al usuario a otra página, usamos los métodos `redirectToRoute()` y `redirect()`:
 
 ```php
+<?php
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-// ...
+...
 public function indexAction()
 {
     // redirect to the "homepage" route
@@ -41,6 +42,7 @@ public function indexAction()
 Cuando las cosas no se encuentran, debemos devolver una respuesta `404`. Para hacer esto, lanzamos un tipo especial de excepción:
 
 ```php
+<?php
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // ...
 public function indexAction()
@@ -59,11 +61,13 @@ public function indexAction()
 ```
 Por supuesto, podemos lanzar cualquier clase de excepción en su controlador: `Symfony` devolverá automáticamente un código de respuesta `HTTP` de `500`.
 ```php
+<?php
 throw new \Exception('Something went wrong!');
 ```
 
 Por ejemplo:
 ```php
+<?php
 //BlogController.php
 class BlogController  extends Controller{
     // ...
@@ -81,7 +85,7 @@ Y la siguiente salida cuando estamos en modo production (`prod`):
 ![](/symfony-teoria/assets/img/sc2.png)
 Para cambiar el modo de entorno (_environment_) de `symfony`, se debe editar el fichero `.env`
 
-```php
+```
 APP_ENV=prod // prod || dev
 ```
 Se puede cambiar la plantilla devuelta por defecto por `Symfony` cuando se producen errores. En la siguiente [página](https://symfony.com/doc/current/controller/error_pages.html) se explica cómo hacerlo.
@@ -89,6 +93,7 @@ Se puede cambiar la plantilla devuelta por defecto por `Symfony` cuando se produ
 Podemos usar el objeto `Request` de `Symfony` si lo pasamos como argumento a una función
 
 ```php
+<?php
 use Symfony\Component\HttpFoundation\Request;
 
 public function indexAction(Request $request)
@@ -118,6 +123,7 @@ public function indexAction(Request $request)
 ## Devolver una respuesta JSON
 Para devolver `JSON` desde un controlador, usamos el método `helper` `json()`. Esto devuelve un objeto especial `JsonResponse` que codifica los datos automáticamente:
 ```php
+<?php
 // ...
 public function indexAction()
 {
@@ -132,6 +138,7 @@ public function indexAction()
 ## Devolver ficheros en streaming
 Podemos usar el helper `file()` para servir un archivo desde dentro de un controlador:
 ```php
+<?php
 use Symfony\Component\HttpFoundation\File\File;
 // ...
 public function fileAction()
@@ -144,6 +151,7 @@ El fichero está en este caso en la carpeta `static` (creada a la altura de publ
 
 El helper `file()` proporciona algunos argumentos para configurar su comportamiento:
 ```php
+<?php
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -165,6 +173,7 @@ public function fileAction()
 ## Uso de sesiones
 Podemos usar el objeto `SessionInterface` de `Symfony` si lo pasamos como argumento a una función
 ```php
+<?php
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 public function indexAction(SessionInterface $session)
@@ -186,6 +195,7 @@ También podemos almacenar mensajes especiales, llamados mensajes "flash", en la
 
 Por ejemplo, imagina que está procesando un envío de formulario:
 ```php
+<?php
 use Symfony\Component\HttpFoundation\Request;
 
 public function updateAction(Request $request)
@@ -211,11 +221,7 @@ public function updateAction(Request $request)
 Después de procesar la `request`, el controlador establece un mensaje `flash` en la sesión y luego redirige. La clave del mensaje (aviso en este ejemplo) puede ser cualquier cosa: usará esta clave para recuperar el mensaje.
 
 En la plantilla siguiente (o incluso mejor, en la plantilla de diseño base), leemos los mensajes `flash` de la sesión usando `app.flashes()`:
-<<<<<<< HEAD
-=======
-{% raw %}
->>>>>>> be52b20563b4918f428406aa6cf9b7193d5fdd47
-```php
+```twig
 # templates/base.html.twig #}
 
 {# you can read and display just one flash message type... #}
@@ -233,28 +239,4 @@ En la plantilla siguiente (o incluso mejor, en la plantilla de diseño base), le
         </div>
     {% endfor %}
 {% endfor %}
-```
-<<<<<<< HEAD
-=======
-{% endraw %}
->>>>>>> be52b20563b4918f428406aa6cf9b7193d5fdd47
-O en `PHP`	
-```php
-<!-- templates/base.html.php -->
-
-// you can read and display just one flash message type...
-<?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
-    <div class="flash-notice">
-        <?php echo $message ?>
-    </div>
-<?php endforeach ?>
-
-// ...or you can read and display every flash message available
-<?php foreach ($view['session']->getFlashBag()->all() as $type => $flash_messages): ?>
-    <?php foreach ($flash_messages as $flash_message): ?>
-        <div class="flash-<?php echo $type ?>">
-            <?php echo $message ?>
-        </div>
-    <?php endforeach ?>
-<?php endforeach ?>
 ```
