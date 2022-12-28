@@ -1,8 +1,8 @@
-baseURL = 'https://victorponz.github.io/programacion-java/'
+baseURL = 'https://victorponz.github.io/symfony-teoria/'
 languageCode = 'en-us'
 title = 'Programación en JAVA'
 theme = 'victor'
 enableGitInfo = true
 [params]
-  GitHubURL = 'https://github.com/victorponz/programacion-java'
-  baseDir = 'programacion-java'
+  GitHubURL = 'https://github.com/victorponz/symfony-teoria'
+  baseDir = 'symfony-teoria'

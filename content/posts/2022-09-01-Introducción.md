@@ -204,10 +204,6 @@ Si visitamos la página [http://127.0.0.1:8000/blog](http://127.0.0.1:8000/blog)
 
 ![lista de entradas](/symfony-teoria/assets/img/image-20211229123913358.png)
 
-
-
-
-
 Si vistamos la página [http://127.0.0.1:8000/blog/5](http://127.0.0.1:8000/blog/5), por ejemplo, aparecerá la entrada de blog con id `5`
 
 ![Entrada de blog](/symfony-teoria/assets/img/image-20211229124115628.png)
@@ -233,11 +229,6 @@ blog_show_twig:
 ```
 
 Creamos las plantillas `twig`
-<<<<<<< HEAD
-
-=======
-{% raw %}
->>>>>>> be52b20563b4918f428406aa6cf9b7193d5fdd47
 `>> templates/blog/entry.html.twig`
 
 ```html
@@ -255,11 +246,6 @@ Creamos las plantillas `twig`
 </ul>
 </body></html>
 ```
-<<<<<<< HEAD
-
-=======
-{% endraw %}
->>>>>>> be52b20563b4918f428406aa6cf9b7193d5fdd47
 Y **creamos un nuevo controlador** para que use estas plantillas:
 
 ```php
@@ -282,7 +268,7 @@ class BlogTwigController extends AbstractController
 }
 ```
 
----
+
 
 **Más información en**
 

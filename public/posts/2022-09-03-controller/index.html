@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria/css/styles.css" />
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp' crossorigin='anonymous'>
+  <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria/css/style.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria//css/utilities.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria//css/post.css" />
+  
+  
+  <title>Programación en JAVA | Controller</title>
+  <script>
+      document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?  localStorage.getItem("theme") : "");
+    </script>
+</head>
+<body><header id="hero">
+    
+    <nav class="navbar">
+      <div class="container">
+        
+        <h1 id="logo">
+        </h1>
+        
+        <ul class="nav-menu">
+          <li><a class="nav-link  btn btn-primary" href="/">HOME</a></li>
+          <li>
+            <a
+              class="nav-link btn btn-primary"
+              href="https://github.com/victorponz/symfony-teoria"
+              >GitHub <i class="fas fa-arrow-right"></i
+            ></a>
+          </li>
+          
+          <div class="theme-switch">
+            <input type="checkbox" id="switch" />
+            <label class="toggle-icons" for="switch">
+              <img class="moon" src="https://victorponz.github.io/symfony-teoria//img/moon.svg" />
+              <img class="sun" src="https://victorponz.github.io/symfony-teoria//img/sun.svg" />
+            </label>
+          </div>
+          
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+<div id="content">
+          <div id="write-wrapper">
+            <section id="projects" class="project-container container">
+              <div id="subject-container" style="width: 100%; padding-top:80px; min-height:800px">
+                 <div class="subject-details">
+                  <div id="write">
+                    <div style="height: 80px; border-left: 5px solid var(--text-color)"></div>
+                    <h1 class="indice">Controller</h1>
+                  <div id='content'><p>Un controlador es una función <code>PHP</code> creada por nosotros que lee información del objeto <code>Request</code> y crea y devuelve un objeto <code>Response</code>. La respuesta podría ser una página <code>HTML</code>, <code>JSON</code>, <code>XML</code>, una descarga de archivos, una redirección, un error 404 o cualquier otra cosa que puedas hacer. El controlador ejecuta cualquier lógica arbitraria que tu aplicación necesita para representar el contenido de una página.</p>
+<p>En apartados anteriores hemos visto el uso básico de los controladores y cómo definir las rutas.</p>
+<h2 id="redireccionar">Redireccionar</h2>
+<p>Si queremos redirigir al usuario a otra página, usamos los métodos <code>redirectToRoute()</code> y <code>redirect()</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\RedirectResponse;
+
+// ...
+public function indexAction()
+{
+    // redirect to the &#34;homepage&#34; route
+    return $this-&gt;redirectToRoute(&#39;homepage&#39;);
+
+    // redirectToRoute is a shortcut for:
+    // return new RedirectResponse($this-&gt;generateUrl(&#39;homepage&#39;));
+
+    // do a permanent - 301 redirect
+    return $this-&gt;redirectToRoute(&#39;homepage&#39;, array(), 301);
+
+    // redirect to a route with parameters
+    return $this-&gt;redirectToRoute(&#39;app_lucky_number&#39;, array(&#39;max&#39; =&gt; 10));
+
+    // redirect externally
+    return $this-&gt;redirect(&#39;http://symfony.com/doc&#39;);
+}
+</code></pre></div><h2 id="gestionar-errores-y-páginas-404">Gestionar errores y páginas 404</h2>
+<p>Cuando las cosas no se encuentran, debemos devolver una respuesta <code>404</code>. Para hacer esto, lanzamos un tipo especial de excepción:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+// ...
+public function indexAction()
+{
+    // retrieve the object from database
+    $product = ...;
+    if (!$product) {
+        throw $this-&gt;createNotFoundException(&#39;The product does not exist&#39;);
+
+        // the above is just a shortcut for:
+        // throw new NotFoundHttpException(&#39;The product does not exist&#39;);
+    }
+
+    return $this-&gt;render(...);
+}
+</code></pre></div><p>Por supuesto, podemos lanzar cualquier clase de excepción en su controlador: <code>Symfony</code> devolverá automáticamente un código de respuesta <code>HTTP</code> de <code>500</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">throw new \Exception(&#39;Something went wrong!&#39;);
+</code></pre></div><p>Por ejemplo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">//BlogController.php
+class BlogController  extends Controller{
+    // ...
+    /**
+  * @Route(&#34;/blog/{page}&#34;, name=&#34;blog_list&#34;, requirements={&#34;page&#34;=&#34;\d+&#34;}, defaults={&#34;page&#34;=1})
+  */
+    public function list()
+    {
+      throw $this-&gt;createNotFoundException(&#39;Esta entrada no existe&#39;);
+    }
+</code></pre></div><p>De esta forma, al visitar la página <a href="http://localhost/symfony/blog/1">http://localhost/symfony/blog/1</a> nos genera la siguiente salida <code>HTML</code>, cuando estamos en modo developer, (<code>dev</code>)
+<img src="/symfony-teoria/assets/img/sc1.png" alt="">
+Y la siguiente salida cuando estamos en modo production (<code>prod</code>):
+<img src="/symfony-teoria/assets/img/sc2.png" alt="">
+Para cambiar el modo de entorno (<em>environment</em>) de <code>symfony</code>, se debe editar el fichero <code>.env</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">APP_ENV=prod // prod || dev
+</code></pre></div><p>Se puede cambiar la plantilla devuelta por defecto por <code>Symfony</code> cuando se producen errores. En la siguiente <a href="https://symfony.com/doc/current/controller/error_pages.html">página</a> se explica cómo hacerlo.</p>
+<h2 id="el-objeto-request">El objeto <code>Request</code></h2>
+<p>Podemos usar el objeto <code>Request</code> de <code>Symfony</code> si lo pasamos como argumento a una función</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\Request;
+
+public function indexAction(Request $request)
+{
+    $request-&gt;isXmlHttpRequest(); // is it an Ajax request?
+
+    $request-&gt;getPreferredLanguage(array(&#39;en&#39;, &#39;fr&#39;));
+
+    // retrieve GET and POST variables respectively
+    $request-&gt;query-&gt;get(&#39;page&#39;);
+    $request-&gt;request-&gt;get(&#39;page&#39;);
+
+    // retrieve SERVER variables
+    $request-&gt;server-&gt;get(&#39;HTTP_HOST&#39;);
+
+    // retrieves an instance of UploadedFile identified by foo
+    $request-&gt;files-&gt;get(&#39;foo&#39;);
+
+    // retrieve a COOKIE value
+    $request-&gt;cookies-&gt;get(&#39;PHPSESSID&#39;);
+
+    // retrieve an HTTP request header, with normalized, lowercase keys
+    $request-&gt;headers-&gt;get(&#39;host&#39;);
+    $request-&gt;headers-&gt;get(&#39;content_type&#39;);
+}
+</code></pre></div><h2 id="devolver-una-respuesta-json">Devolver una respuesta JSON</h2>
+<p>Para devolver <code>JSON</code> desde un controlador, usamos el método <code>helper</code> <code>json()</code>. Esto devuelve un objeto especial <code>JsonResponse</code> que codifica los datos automáticamente:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">// ...
+public function indexAction()
+{
+    // returns &#39;{&#34;username&#34;:&#34;jane.doe&#34;}&#39; and sets the proper Content-Type header
+    return $this-&gt;json(array(&#39;username&#39; =&gt; &#39;jane.doe&#39;));
+
+    // the shortcut defines three optional arguments
+    // return $this-&gt;json($data, $status = 200, $headers = array(), $context = array());
+}
+</code></pre></div><h2 id="devolver-ficheros-en-streaming">Devolver ficheros en streaming</h2>
+<p>Podemos usar el helper <code>file()</code> para servir un archivo desde dentro de un controlador:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\File\File;
+// ...
+public function fileAction()
+{
+    // send the file contents and force the browser to download it
+    return $this-&gt;file(&#39;../static/hola.txt&#39;);
+}
+</code></pre></div><p>El fichero está en este caso en la carpeta <code>static</code> (creada a la altura de public)</p>
+<p>El helper <code>file()</code> proporciona algunos argumentos para configurar su comportamiento:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+public function fileAction()
+{
+    // load the file from the filesystem
+    $file = new File(&#39;/path/to/some_file.pdf&#39;);
+
+    return $this-&gt;file($file);
+
+    // rename the downloaded file
+    return $this-&gt;file($file, &#39;custom_name.pdf&#39;);
+
+    // display the file contents in the browser instead of downloading it
+    return $this-&gt;file(&#39;invoice_3241.pdf&#39;, &#39;my_invoice.pdf&#39;, ResponseHeaderBag::DISPOSITION_INLINE);
+}
+</code></pre></div><h2 id="uso-de-sesiones">Uso de sesiones</h2>
+<p>Podemos usar el objeto <code>SessionInterface</code> de <code>Symfony</code> si lo pasamos como argumento a una función</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
+public function indexAction(SessionInterface $session)
+{
+    // store an attribute for reuse during a later user request
+    $session-&gt;set(&#39;foo&#39;, &#39;bar&#39;);
+
+    // get the attribute set by another controller in another request
+    $foobar = $session-&gt;get(&#39;foobar&#39;);
+
+    // use a default value if the attribute doesn&#39;t exist
+    $filters = $session-&gt;get(&#39;filters&#39;, array());
+}
+</code></pre></div><h2 id="mensajes-flash">Mensajes Flash</h2>
+<p>También podemos almacenar mensajes especiales, llamados mensajes &ldquo;flash&rdquo;, en la sesión del usuario. Por diseño, los mensajes flash deben usarse exactamente una vez: desaparecen de la sesión automáticamente tan pronto como los recuperamos. Esta función hace que los mensajes &ldquo;flash&rdquo; sean especialmente útiles para almacenar notificaciones de usuario.</p>
+<p>Por ejemplo, imagina que está procesando un envío de formulario:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">use Symfony\Component\HttpFoundation\Request;
+
+public function updateAction(Request $request)
+{
+    // ...
+
+    if ($form-&gt;isSubmitted() <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> $form-&gt;isValid()) {
+        // do some sort of processing
+
+        $this-&gt;addFlash(
+            &#39;notice&#39;,
+            &#39;Your changes were saved!&#39;
+        );
+        // $this-&gt;addFlash() is equivalent to $request-&gt;getSession()-&gt;getFlashBag()-&gt;add()
+
+        return $this-&gt;redirectToRoute(...);
+    }
+
+    return $this-&gt;render(...);
+}
+
+</code></pre></div><p>Después de procesar la <code>request</code>, el controlador establece un mensaje <code>flash</code> en la sesión y luego redirige. La clave del mensaje (aviso en este ejemplo) puede ser cualquier cosa: usará esta clave para recuperar el mensaje.</p>
+<h1 id="-head">En la plantilla siguiente (o incluso mejor, en la plantilla de diseño base), leemos los mensajes <code>flash</code> de la sesión usando <code>app.flashes()</code>:
+&laquo;&laquo;&laquo;&lt; HEAD</h1>
+<p>{% raw %}</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>be52b20563b4918f428406aa6cf9b7193d5fdd47</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"># templates/base.html.twig #}
+
+{# you can read and display just one flash message type... #}
+{% for message in app.flashes(&#39;notice&#39;) %}
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flash-notice&#34;</span>&gt;
+        {{ message }}
+    &lt;/<span style="color:#f92672">div</span>&gt;
+{% endfor %}
+
+{# ...or you can read and display every flash message available #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flash-{{ label }}&#34;</span>&gt;
+            {{ message }}
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    {% endfor %}
+{% endfor %}
+</code></pre></div><h1 id="-head-1">&laquo;&laquo;&laquo;&lt; HEAD</h1>
+<p>{% endraw %}</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>be52b20563b4918f428406aa6cf9b7193d5fdd47
+O en <code>PHP</code></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;!-- templates/base.html.php --&gt;</span>
+
+// you can read and display just one flash message type...
+<span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">foreach</span> ($view[<span style="color:#e6db74">&#39;session&#39;</span>]<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getFlashBag</span>()<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;notice&#39;</span>) <span style="color:#66d9ef">as</span> $message)<span style="color:#f92672">:</span> <span style="color:#75715e">?&gt;</span>
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flash-notice&#34;</span>&gt;
+        <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $message <span style="color:#75715e">?&gt;</span>
+    &lt;/<span style="color:#f92672">div</span>&gt;
+<span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">endforeach</span> <span style="color:#75715e">?&gt;</span>
+
+// ...or you can read and display every flash message available
+<span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">foreach</span> ($view[<span style="color:#e6db74">&#39;session&#39;</span>]<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getFlashBag</span>()<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">all</span>() <span style="color:#66d9ef">as</span> $type <span style="color:#f92672">=&gt;</span> $flash_messages)<span style="color:#f92672">:</span> <span style="color:#75715e">?&gt;</span>
+    <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">foreach</span> ($flash_messages <span style="color:#66d9ef">as</span> $flash_message)<span style="color:#f92672">:</span> <span style="color:#75715e">?&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flash-</span><span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $type <span style="color:#75715e">?&gt;</span><span style="color:#e6db74">&#34;</span>&gt;
+            <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $message <span style="color:#75715e">?&gt;</span>
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">endforeach</span> <span style="color:#75715e">?&gt;</span>
+<span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">endforeach</span> <span style="color:#75715e">?&gt;</span>
+</code></pre></div>
+                  </div>
+                 </div>
+                </div>
+              </div>
+            </section><footer id="footer">
+    <div class="container">
+      
+      <div class="attribution">
+        <a rel="license" href="http://creativecoms.org/licenses/by-sa/4.0/">
+          <img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a>
+        <br />Todo el material de esta web está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional</a>.
+
+      </div>
+      <div class="attribution">
+        <a
+          href="https://github.com/CommunityPro/portfolio-html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://user-images.githubusercontent.com/62628408/157202263-9174da24-b19a-4017-9b7c-a1d26ae8f014.svg"
+            alt="attribution"
+            width="150px"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="https://victorponz.github.io/symfony-teoria/js/script.js"></script></body>
+</html>

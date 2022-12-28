@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria/css/styles.css" />
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp' crossorigin='anonymous'>
+  <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria/css/style.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria//css/utilities.css" />
+  <link rel="stylesheet" href="https://victorponz.github.io/symfony-teoria//css/post.css" />
+  
+  
+  <title>Programación en JAVA | Templates</title>
+  <script>
+      document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?  localStorage.getItem("theme") : "");
+    </script>
+</head>
+<body><header id="hero">
+    
+    <nav class="navbar">
+      <div class="container">
+        
+        <h1 id="logo">
+        </h1>
+        
+        <ul class="nav-menu">
+          <li><a class="nav-link  btn btn-primary" href="/">HOME</a></li>
+          <li>
+            <a
+              class="nav-link btn btn-primary"
+              href="https://github.com/victorponz/symfony-teoria"
+              >GitHub <i class="fas fa-arrow-right"></i
+            ></a>
+          </li>
+          
+          <div class="theme-switch">
+            <input type="checkbox" id="switch" />
+            <label class="toggle-icons" for="switch">
+              <img class="moon" src="https://victorponz.github.io/symfony-teoria//img/moon.svg" />
+              <img class="sun" src="https://victorponz.github.io/symfony-teoria//img/sun.svg" />
+            </label>
+          </div>
+          
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+<div id="content">
+          <div id="write-wrapper">
+            <section id="projects" class="project-container container">
+              <div id="subject-container" style="width: 100%; padding-top:80px; min-height:800px">
+                 <div class="subject-details">
+                  <div id="write">
+                    <div style="height: 80px; border-left: 5px solid var(--text-color)"></div>
+                    <h1 class="indice">Templates</h1>
+                  <div id='content'><p>Como se explica en el apartado anterior, los controladores son los responsables de manejar cada solicitud que entre en una aplicación Symfony y por lo general, terminan representando una plantilla para generar los contenidos de respuesta.</p>
+<p>En realidad, el controlador delega la mayor parte del trabajo pesado a otros lugares, por lo que ese código puede ser probado y reutilizado. Cuando un controlador necesita generar HTML, CSS o cualquier otro contenido, entrega el trabajo al motor de plantillas.</p>
+<p>En este manual, aprenderás cómo escribir plantillas poderosas que pueden ser utilizadas para devolver el contenido al usuario, rellenar cuerpos de correo electrónico y más. Aprenderás métodos abreviados, formas inteligentes de extender plantillas y cómo reutilizar código de plantillas.</p>
+<h2 id="plantillas">Plantillas</h2>
+<p>Una plantilla es simplemente un archivo de texto que puede generar cualquier formato basado en texto (<code>HTML</code>, <code>XML</code>, <code>CSV</code>, <code>LaTeX</code> &hellip;). El tipo de plantilla más familiar es una plantilla en <code>PHP</code>: un archivo de texto analizado por <code>PHP</code> que contiene una combinación de texto y código <code>PHP</code>:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+    &lt;<span style="color:#f92672">head</span>&gt;
+        &lt;<span style="color:#f92672">title</span>&gt;Welcome to Symfony!&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;/<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">body</span>&gt;
+        &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $page_title <span style="color:#75715e">?&gt;</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+
+        &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navigation&#34;</span>&gt;
+            <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">foreach</span> ($navigation <span style="color:#66d9ef">as</span> $item)<span style="color:#f92672">:</span> <span style="color:#75715e">?&gt;</span>
+                &lt;<span style="color:#f92672">li</span>&gt;
+                    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $item<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getHref</span>() <span style="color:#75715e">?&gt;</span><span style="color:#e6db74">&#34;</span>&gt;
+                        <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">echo</span> $item<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getCaption</span>() <span style="color:#75715e">?&gt;</span>
+                    &lt;/<span style="color:#f92672">a</span>&gt;
+                &lt;/<span style="color:#f92672">li</span>&gt;
+            <span style="color:#75715e">&lt;?php</span> <span style="color:#66d9ef">endforeach</span> <span style="color:#75715e">?&gt;</span>
+        &lt;/<span style="color:#f92672">ul</span>&gt;
+    &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>{% endraw %}
+Pero <code>Symfony</code> incluye un lenguaje de plantillas aún más poderoso llamado <code>Twig</code>. Twig te permite escribir plantillas concisas y legibles que son más amigables para los diseñadores web y, de varias maneras, más poderoso que las plantillas <code>PHP</code>:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- Plantilla --&gt;</span>
+<span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+    &lt;<span style="color:#f92672">head</span>&gt;
+        &lt;<span style="color:#f92672">title</span>&gt;Welcome to Symfony!&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;/<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">body</span>&gt;
+        &lt;<span style="color:#f92672">h1</span>&gt;{{ page_title }}&lt;/<span style="color:#f92672">h1</span>&gt;
+
+        &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navigation&#34;</span>&gt;
+            {% for item in navigation %}
+                &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ item.href }}&#34;</span>&gt;{{ item.caption }}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+            {% endfor %}
+        &lt;/<span style="color:#f92672">ul</span>&gt;
+    &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>{% endraw %}
+Twig define tres tipos de sintaxis especial:
+{% raw %}
+<code>{{...}}</code>
+{% endraw %}
+&ldquo;Dice algo&rdquo;: imprime una variable o el resultado de una expresión en la plantilla.
+{% raw %}
+<code>{% ...%}</code>
+{% endraw %}
+&ldquo;Hace algo&rdquo;: una ** tag ** que controla la lógica de la plantilla; se usa para ejecutar sentencias como for-loops por ejemplo.
+{% raw %}
+<code>{# ... #}</code>
+{% endraw %}
+&ldquo;Comenta algo&rdquo;: es el equivalente de PHP a <code>/* comment */</code> . Se usa para agregar comentarios de una o varias líneas. El contenido de los comentarios no estará incluido en las páginas representadas.</p>
+<p>Twig también contiene ** filtros **, que modifican el contenido antes de ser procesados.
+Lo siguiente hace que la variable de <code>title</code> sea mayúscula antes de la representación:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">{# TWIG #}
+    {{ title|upper }}
+</code></pre></div><p>{% endraw %}
+Twig viene con una larga lista de <a href="https://twig.symfony.com/doc/2.x/tags/index.html">tags</a>, <a href="https://twig.symfony.com/doc/2.x/filters/index.html">filtros</a> y <a href="https://twig.symfony.com/doc/2.x/functions/index.html">funciones</a> que están disponibles por defecto. Incluso puedes agregar tus propios filtros <em>personalizados</em>, funciones (y más) a través de <a href="http://symfony.com/doc/current/templating/twig_extension.html">Twig Extensions</a>.</p>
+<p>El código <code>Twig</code> es similar al código <code>PHP</code>, con diferencias sutiles y agradables. El siguiente  ejemplo usa una etiqueta estándar <code>for</code>  y la función de <code>cycle()</code> para imprimir diez etiquetas <code>div</code>, alternando clases <code>odd</code> y <code>even</code>:</p>
+<p>Twig viene con una larga lista de <a href="https://twig.symfony.com/doc/2.x/tags/index.html">tags</a>, <a href="https://twig.symfony.com/doc/2.x/filters/index.html">filtros</a> y <a href="https://twig.symfony.com/doc/2.x/functions/index.html">funciones</a> que están disponibles por defecto. Incluso puedes agregar tus propios filtros <em>personalizados</em>, funciones (y más) a través de <a href="http://symfony.com/doc/current/templating/twig_extension.html">Twig Extensions</a>.</p>
+<p>El código <code>Twig</code> es similar al código <code>PHP</code>, con diferencias sutiles y agradables. El siguiente  ejemplo usa una etiqueta estándar <code>for</code>  y la función de <code>cycle()</code> para imprimir diez etiquetas <code>div</code>, alternando clases <code>odd</code> y <code>even</code>:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# TWIG #}
+
+{% for i in 1..10 %}
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ cycle([&#39;even&#39;, &#39;odd&#39;], i) }}&#34;</span>&gt;
+      <span style="color:#75715e">&lt;!-- some HTML here --&gt;</span>
+    &lt;/<span style="color:#f92672">div</span>&gt;
+{% endfor %}
+</code></pre></div><p>{% endraw %}
+A lo largo de este artículo, se mostrarán ejemplos de plantillas tanto en Twig como en PHP.</p>
+<h2 id="por-qué-twig">¿Por qué Twig?</h2>
+<p>Las plantillas Twig están diseñadas para ser simples y no procesarán etiquetas PHP. Esto es así por diseño: el sistema de plantillas Twig está destinado a expresar la presentación, no la lógica del programa. Cuanto más uses Twig, más apreciarás y te beneficiarás de esta distinción. Y por supuesto, serás amado por diseñadores web en todas partes.<br>
+Twig también puede hacer cosas que PHP no puede, como el control de espacios en blanco, sandboxing, escapado automático de HTML, escape de salida contextual manual, y la inclusión de funciones personalizadas y filtros que solo afectan a las plantillas. Twig contiene pequeñas características que hacen que escribir plantillas sea más fácil y más conciso. Toma el siguiente ejemplo, que combina un bucle con una declaración <em>if</em>:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# TWIG #}
+&lt;<span style="color:#f92672">ul</span>&gt;
+    {% for user in users if user.active %}
+        &lt;<span style="color:#f92672">li</span>&gt;{{ user.username }}&lt;/<span style="color:#f92672">li</span>&gt;
+    {% else %}
+        &lt;<span style="color:#f92672">li</span>&gt;No users found&lt;/<span style="color:#f92672">li</span>&gt;
+    {% endfor %}
+&lt;/<span style="color:#f92672">ul</span>&gt;
+</code></pre></div><p>{% endraw %}</p>
+<h2 id="twig-template-caching">Twig Template Caching</h2>
+<p>Twig es rápido porque cada plantilla se compila en una clase PHP nativa y se almacena en caché. Pero no te preocupes: esto sucede automáticamente y no requiere que hagas nada.<br>
+Y mientras estamos en desarrollo, Twig es lo suficientemente inteligente como para volver a compilar sus plantillas después de hacer cualquier cambio. Eso significa que Twig es rápido en producción, pero fácil de usar mientras estás desarrollando.</p>
+<h2 id="herencia-de-plantillas-y-layouts">Herencia de plantillas y layouts</h2>
+<p>La mayoría de las veces, las plantillas en un proyecto comparten elementos comunes, como el encabezado, pie de página, barra lateral o más. En Symfony, se piensa en este problema de manera diferente: una plantilla puede ser decorada por otra. Esto funciona exactamente lo mismo que las clases de PHP: la herencia de la plantilla te permite construir una plantilla base de &ldquo;layout&rdquo; que contiene todos los elementos comunes de tu sitio definidos como ** blocks ** (piensa en una &ldquo;clase PHP con métodos base&rdquo;). Una plantilla hija puede extender el diseño base y sobreescribir cualquiera de sus bloques (piensa en &ldquo;subclase PHP&rdquo; que sobreescribe ciertos métodos de su clase principal&rdquo;).</p>
+<p>Primero, crea un archivo de diseño base:
+{% raw %}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{# templates/base.html.twig #}
+<span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+    &lt;<span style="color:#f92672">head</span>&gt;
+        &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+        &lt;<span style="color:#f92672">title</span>&gt;{% block title %}Test Application{% endblock %}&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;/<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">body</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidebar&#34;</span>&gt;
+            {% block sidebar %}
+                &lt;<span style="color:#f92672">ul</span>&gt;
+                    &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/&#34;</span>&gt;Home&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+                    &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/blog&#34;</span>&gt;Blog&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+                &lt;/<span style="color:#f92672">ul</span>&gt;
+            {% endblock %}
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span>&gt;
+            {% block body %}{% endblock %}
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>{% endraw %}</p>
+
+                  </div>
+                 </div>
+                </div>
+              </div>
+            </section><footer id="footer">
+    <div class="container">
+      
+      <div class="attribution">
+        <a rel="license" href="http://creativecoms.org/licenses/by-sa/4.0/">
+          <img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+        </a>
+        <br />Todo el material de esta web está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licencia de Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional</a>.
+
+      </div>
+      <div class="attribution">
+        <a
+          href="https://github.com/CommunityPro/portfolio-html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://user-images.githubusercontent.com/62628408/157202263-9174da24-b19a-4017-9b7c-a1d26ae8f014.svg"
+            alt="attribution"
+            width="150px"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="https://victorponz.github.io/symfony-teoria/js/script.js"></script></body>
+</html>
