@@ -121,7 +121,7 @@
 	left:-62px;
 }
    
-[data-theme="dark"] code.highlighter-rouge {
+[data-theme="dark"]  code:not([class]) {
 	background-color: var(--bg-secondary);
 	color: var(--bg-primary);
 }
