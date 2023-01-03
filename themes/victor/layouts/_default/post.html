@@ -3,7 +3,15 @@
     {{- partial "head-post.html" . -}}
     <body>
         {{- partial "header.html" . -}}
-        <div id="content">
+        <div id="menuContainer">
+          <div class="typora-menu-hidden" id="menuFixed">
+            {{ .TableOfContents }}
+          </div>
+            <div class="top-hidden" id="topFixed">
+              <a title='Mostrar/Ocultar menú' class="toogle expanded pull-left js-toolbar-action" aria-label="" href="#"><i class="fas fa-align-justify"></i></a>
+            </div>
+          </div>
+        <div>
           
           <div id="write-wrapper">
             <section id="projects" class="project-container container">
@@ -11,9 +19,8 @@
                  <div class="subject-details" style="min-height:400px">
                   <div id="write">
                     <div style="height: 80px; border-left: 5px solid var(--text-color)"></div>
-                    <h1 class="indice">{{ .Title }}</h1>
-                    {{ .TableOfContents }}
-
+                    <h1 class="indice atypora-menu" id="menu">{{ .Title }}</h1>
+                     {{ .TableOfContents }}                   
                   <div id='content'>
                    
                     {{- block "main" . }}
@@ -33,6 +40,7 @@
             </section> 
           </div>
         </div>
+        <a href="#top" id='back-to-top-link'><i class='fa fa-angle-up'></i></a>
         {{- partial "scripts.html" . -}}
         {{- partial "footer.html" . -}}
     </body>

@@ -126,7 +126,7 @@ body {
 #menuFixed a {
   border-left: 1px solid transparent; }
 
-#menuFixed a.active {
+.typora-menu-hidden #TableOfContents li a.active{
   border-left: 1px solid #fafafa;
   color: var(--primary-color)
 }
@@ -283,7 +283,7 @@ padding: 0px 12px;
 .typora-menu-hidden, .typora-menu-hidden ul {
   list-style-type: none;
 }
-.typora-menu-hidden li a {
+.typora-menu-hidden #TableOfContents li a{
   display: block;
   padding: 4px 4px;
   border-bottom: none;
@@ -304,6 +304,7 @@ video {
 }
 .show, .top-hidden.indice.show{
   display:inline;
+  z-index: 1000;
 }
 
 #back-to-top-link {
