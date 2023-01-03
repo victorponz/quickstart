@@ -40,7 +40,7 @@ $ php -S 127.0.0.1:8000 -t public
 
 Este último comando hace que el Document Root del servidor incorporado en `PHP` sea el directorio `public`, que es donde reside `index.php` y aquí empieza todo!
 
-> El directorio `public` es el hogar de todos los archivos públicos y estáticos de la aplicación, incluidas imágenes, hojas de estilo y archivos JavaScript. También es donde vive el controlador frontal \(`index.php`\).
+>-info- El directorio `public` es el hogar de todos los archivos públicos y estáticos de la aplicación, incluidas imágenes, hojas de estilo y archivos JavaScript. También es donde vive el controlador frontal \(`index.php`\).
 
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 

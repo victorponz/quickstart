@@ -16,7 +16,16 @@
 
                   <div id='content'>
                    
-                    {{- block "main" . }}{{ .Content }}{{- end }}
+                    {{- block "main" . }}
+                    {{ $content := replace .Content ">-hint-" " class='hint'><i class='fa fa-lightbulb icon-blockquote'></i> "}}
+                    {{ $content = replace $content ">-info-" " class='info'><i class='fa fa-info icon-blockquote'></i> " | safeHTML}}
+                    {{ $content = replace $content ">-reto-" " class='reto'><i class='fa fa-graduation-cap icon-blockquote'></i> " | safeHTML}}
+                    {{ $content = replace $content ">-warning-" " class='warning'><i class='fa fa-exclamation icon-blockquote'></i> " | safeHTML}}
+                    {{ $content = replace $content ">-alert-" " class='alert'><i class='fa fa-bomb icon-blockquote'></i> " | safeHTML}}
+                    {{ $content = replace $content ">-toogle-" " class='toogle'>" | safeHTML}}
+                    {{ $content = replace $content ">-task-" " class='task'><i class='fa fa-tasks icon-blockquote'></i> " | safeHTML  }}
+                    {{ $content }}
+                    {{- end }}
                   </div>
                  </div>
                 </div>
