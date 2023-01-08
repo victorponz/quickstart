@@ -6,7 +6,7 @@ slug: introduccion
 conToc: true
 title : Introducción
 render_with_liquid: false
-date: 2022-09-01T19:50:07+01:00
+date: 2022-09-10T19:50:07+01:00
 ---
 
 [Symfony](http://symfony.com/) es un framework PHP para desarrollo de aplicaciones web así como un conjunto de componentes PHP para usar en tus proyectos.
